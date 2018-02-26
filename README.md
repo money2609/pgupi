@@ -55,7 +55,35 @@ The status can be of the following types:
 5. retried (for cases where same merchant_txn_id is passed)
 6. declined
 
+
+## Sample Curl Request
+curl -X POST \
+  https://pgupi.mypoolin.com/payment \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
+  -F checksum=asdlnslnsaowhwwwwwwamnsaeytwervcoausdasdkuasdvkaduavwdkhvadkvasjdghk \
+  -F merchant_name=test-abhinav \
+  -F merchant_message=payment \
+  -F merchant_txn_id=12345XYZABC \
+  -F amount=5.00 \
+  -F mobile=9665910027
+
+## Psedocode For CheckSum Generation
+
+#Initializing array
+arr = [<username>, <merchant_txn_id>, <amount>, <secret>]
+
+#Concatenate elements in array with pipe(|)
+for data in arr:
+  checksum_str  += str(data) + '|'
+    
+checksum_str = checksum_str[:-1]
+
+#Checksum will look like
+<username>|<merchant_txn_id>|<amount>|<secret>
+
+#Create hash512
+return hashlib.sha512(checksum_str).hexdigest().upper()
+
+
 for further queries please call: +91-7418423277 / +91-9665910027 
-
-
 
